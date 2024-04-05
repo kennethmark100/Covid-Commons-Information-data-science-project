@@ -1,0 +1,16 @@
+# Covid-Commons-Information-data-science-project
+
+# merging 2020,2021,2022 data sets
+import pandas as pd
+
+US_2020 = pd.read_csv('/Users/kennethmark/Desktop/Excel data merge/OxCGRT_USA_differentiated_withnotes_2020 (2).csv')
+US_2021 = pd.read_csv('/Users/kennethmark/Desktop/Excel data merge/OxCGRT_USA_differentiated_withnotes_2021.csv')
+US_2022 = pd.read_csv('/Users/kennethmark/Desktop/Excel data merge/OxCGRT_USA_differentiated_withnotes_2022.csv')
+
+merged_df = pd.concat([US_2020, US_2021, US_2022])
+
+merged_df.reset_index(drop=True, inplace=True)
+
+print(merged_df)
+
+merged_df.to_csv('/Users/kennethmark/Desktop/Excel data merge/merged_data.csv', index=False)
