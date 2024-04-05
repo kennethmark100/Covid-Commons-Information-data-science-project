@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Using merged data for the time series 
+
+data = pd.read_csv('/Users/kennethmark/Desktop/Excel data merge/Iowa.csv', encoding='latin1')
+
+iowa_data = data[data['RegionName'] == 'Iowa']
+florida_data = data[data['RegionName'] == 'Florida']
+new_york_data = data[data['RegionName'] == 'New York']
+california_data = data[data['RegionName'] == 'California']
+
+population_data = {
+    'Iowa': 3164000,
+    'Florida': 21730000,
+    'New York': 19340000,
+    'California': 39370000
+}
+for df in [iowa_data, florida_data, new_york_data, california_data]:
+    df['date'] = pd.to_datetime(df['Date'])
+
+for df in [iowa_data, florida_data, new_york_data, california_data]:
+    df.set_index('Date', inplace=True)
+
+for state, df in [('Iowa', iowa_data), ('Florida', florida_data), ('New York', new_york_data), ('California', california_data)]:
+    population = population_data[state]
+    df['deaths_per_capita'] = (df['ConfirmedCases'] / population) * 100000
+    
+plt.figure(figsize=(10, 6))
+plt.plot(iowa_data.index, iowa_data['deaths_per_capita'], color='blue', label='Iowa')
+plt.plot(florida_data.index, florida_data['deaths_per_capita'], color='red', label='Florida')
+plt.plot(new_york_data.index, new_york_data['deaths_per_capita'], color='green', label='New York')
+plt.plot(california_data.index, california_data['deaths_per_capita'], color='orange', label='California')
+plt.title('Cases per Capita Time Series Data')
+plt.xlabel('Date')
+plt.ylabel('Cases per 100,000 people')
+plt.legend()
+plt.grid(True)
+plt.show()
