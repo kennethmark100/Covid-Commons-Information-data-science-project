@@ -1,1 +1,3 @@
 # Covid-Commons-Information-data-science-project
+
+In our project, we started off by merging the US state data for the years 2020, 2021 and 2022 in Python. Next, we put our data in excel to see what policies we wamted to research and found interesting. We than coded a time series in Python on the States we decided to research using the merged data file. After, we made geospatial maps in Tableau that are featured in our research paper. Lastly, we coded OLS ML models for each of the states we were interested in to see the affect of health polices on deaths. We finished up by analyzing the data and writing a research paper. 
