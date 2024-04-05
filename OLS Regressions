@@ -1,0 +1,53 @@
+# Renaming health policy variables 
+# Creating dummy variables around the state we were researching New York, Iowa, Florida and California.
+import pandas as pd
+import statsmodels.api as smf
+
+df = pd.read_csv('/merged_data.csv')
+
+new_df = df.rename(columns={
+     'H3E_Contact tracing': 'H3E',
+     'H2E_Testing policy': 'H2E',
+     'H1E_Public information campaigns': 'H1E',
+     'H6M_Facial Coverings': 'H6M',
+     'H7E_Vaccination policy': "H7E",
+     'H8E_Protection of elderly people': "H8E"
+
+})
+nydf = new_df[new_df['RegionName'] == 'New York']
+iadf = new_df[new_df['RegionName'] == 'Iowa']
+fldf = new_df[new_df['RegionName'] == 'Florida']
+cadf = new_df[new_df['RegionName'] == 'California']
+
+new_df['ConfirmedDeaths'].value_counts(dropna = False)
+
+
+# Created OLS regression for New Yorks data for the years 2020, 2021, 2022 around health policies and how they affected the number of deaths
+
+formula = 'ConfirmedDeaths ~ H3E + H2E + H1E + H6M + H7E + H8E'
+model = sm.OLS.from_formula(formula=formula, data=nydf)
+results = model.fit()
+print(results.summary())
+
+# Created OLS regression for Iowa data for the years 2020, 2021, 2022 around health policies and how they affected the number of deaths
+
+formula = 'ConfirmedDeaths ~ H3E + H2E + H1E + H6M + H7E + H8E'
+model = sm.OLS.from_formula(formula=formula, data=iadf)
+results = model.fit()
+print(results.summary())
+
+# Created OLS regression for Florida data for the years 2020, 2021, 2022 around health policies and how they affected the number of deaths
+
+formula = 'ConfirmedDeaths ~ H3E + H2E + H1E + H6M + H7E + H8E'
+model = sm.OLS.from_formula(formula=formula, data=fldf)
+results = model.fit()
+print(results.summary())
+
+# Created OLS regression for California data for the years 2020, 2021, 2022 around health policies and how they affected the number of deaths
+
+
+formula = 'ConfirmedDeaths ~ H3E + H2E + H1E + H6M + H7E + H8E'
+model = sm.OLS.from_formula(formula=formula, data=cadf)
+results = model.fit()
+print(results.summary())
+
